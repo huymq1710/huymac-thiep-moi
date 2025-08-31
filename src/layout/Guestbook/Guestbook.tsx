@@ -10,9 +10,9 @@ const Guestbook = () => {
   return (
     <GuestBookWrapper>
       <Heading2>
-        Vui lòng để lại lời nhắn.
+        Vui lòng để lại lời chúc.
         <br />
-        Một ngày sau đám cưới, sẽ được chuyển đến cô dâu chú rể.
+        Lời chúc sẽ được lưu lại, và được chuyển đến cô dâu chú rể.
       </Heading2>
       <CommentForm />
       

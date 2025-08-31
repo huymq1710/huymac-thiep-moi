@@ -52,7 +52,7 @@ const CommentForm = () => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <SubmitButton type="submit">Đăng ký</SubmitButton>
+      <SubmitButton type="submit">Gửi lời chúc</SubmitButton>
     </FormWrapper>
   );
 };
