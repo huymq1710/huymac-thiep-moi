@@ -1,24 +1,31 @@
 import { Gallery, Item } from 'react-photoswipe-gallery';
 import 'photoswipe/style.css';
 import images from '@/layout/Gallery/Images.ts';
+import LazyImage from '@/components/LazyImage.tsx';
+import { useMemo } from 'react';
 
 const PhotoGallery = () => {
-  const smallItemStyles: React.CSSProperties = {
+  const smallItemStyles: React.CSSProperties = useMemo(() => ({
     cursor: 'pointer',
     objectFit: 'cover', // 전체 이미지가 보이도록 맞추고 싶을 때는 contain / 비율 유지하고 싶을 때는 cover
     width: '100px',
     height: '150px',
-  };
+    borderRadius: '8px',
+    transition: 'transform 0.2s ease-in-out',
+  }), []);
+
+  const memoizedImages = useMemo(() => images, []);
 
   return (
     <Gallery>
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 0fr)',
-          gridGap: 2,
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '8px',
+          padding: '0 4px',
         }}>
-        {images.map((image, index) => {
+        {memoizedImages.map((image, index) => {
           return (
             <Item
               key={index}
@@ -28,7 +35,7 @@ const PhotoGallery = () => {
               width={image.width}
               height={image.height}>
               {({ ref, open }) => (
-                <img
+                <LazyImage
                   style={smallItemStyles}
                   alt={image.alt}
                   src={image.source}

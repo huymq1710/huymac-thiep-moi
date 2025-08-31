@@ -23,15 +23,37 @@ const FloatingBar = ({ isVisible }: { isVisible: boolean }) => {
   //   });
   // }, []);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.href).then(
-      () => {
+  const handleCopy = async () => {
+    try {
+      // Kiểm tra xem clipboard API có khả dụng không
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(window.location.href);
         alert('Địa chỉ đã được sao chép.😉😉');
-      },
-      () => {
-        alert('Sao chép địa chỉ thất bại.🥲🥲');
-      },
-    );
+      } else {
+        // Fallback cho các trường hợp không hỗ trợ clipboard API
+        const textArea = document.createElement('textarea');
+        textArea.value = window.location.href;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+          document.execCommand('copy');
+          alert('Địa chỉ đã được sao chép.😉😉');
+        } catch (err) {
+          console.error('Fallback copy failed:', err);
+          alert('Sao chép địa chỉ thất bại.🥲🥲');
+        } finally {
+          document.body.removeChild(textArea);
+        }
+      }
+    } catch (err) {
+      console.error('Copy failed:', err);
+      alert('Sao chép địa chỉ thất bại.🥲🥲');
+    }
   };
 
   const handleCount = () => {
@@ -45,137 +67,26 @@ const FloatingBar = ({ isVisible }: { isVisible: boolean }) => {
   };
 
   const handleViewComments = () => {
-    // Tạo một trang mới để xem tất cả lời chúc
-    const newWindow = window.open('', '_blank');
-    if (newWindow) {
-      newWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Tất cả lời chúc - Đám cưới</title>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <style>
-            body { 
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-              margin: 0; 
-              padding: 20px; 
-              background-color: #f8f9fa;
-              line-height: 1.6;
-            }
-            .container { 
-              max-width: 800px; 
-              margin: 0 auto; 
-              background: white; 
-              padding: 20px; 
-              border-radius: 10px;
-              box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }
-            .header { 
-              text-align: center; 
-              margin-bottom: 30px; 
-              padding-bottom: 20px;
-              border-bottom: 2px solid #eee;
-            }
-            .back-btn { 
-              margin-bottom: 20px; 
-              padding: 10px 15px; 
-              background: #007bff; 
-              color: white; 
-              border: none; 
-              border-radius: 5px; 
-              cursor: pointer;
-              font-size: 14px;
-            }
-            .back-btn:hover { background: #0056b3; }
-            .comment { 
-              margin: 15px 0; 
-              padding: 15px; 
-              border: 1px solid #eee; 
-              border-radius: 8px;
-              background: #fafafa;
-            }
-            .comment-header { 
-              display: flex; 
-              justify-content: space-between; 
-              margin-bottom: 10px;
-              font-weight: bold;
-            }
-            .comment-message { 
-              white-space: pre-wrap; 
-              color: #333;
-            }
-            .loading { 
-              text-align: center; 
-              color: #666; 
-              font-style: italic;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>💝 Tất cả lời chúc</h1>
-              <button class="back-btn" onclick="window.close()">← Đóng cửa sổ</button>
-            </div>
-            <div id="comments-container">
-              <div class="loading">Đang tải lời chúc...</div>
-            </div>
-          </div>
-          
-          <script type="module">
-            import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js';
-            import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js';
-            
-            // Firebase config from environment variables
-            const firebaseConfig = {
-              apiKey: "${import.meta.env.VITE_FIREBASE_API_KEY}",
-              authDomain: "${import.meta.env.VITE_FIREBASE_AUTH_DOMAIN}",
-              databaseURL: "${import.meta.env.VITE_FIREBASE_DATABASE_URL}",
-              projectId: "${import.meta.env.VITE_FIREBASE_PROJECT_ID}",
-              storageBucket: "${import.meta.env.VITE_FIREBASE_STORAGE_BUCKET}",
-              messagingSenderId: "${import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID}",
-              appId: "${import.meta.env.VITE_FIREBASE_APP_ID}"
-            };
-            
-            try {
-              const app = initializeApp(firebaseConfig);
-              const db = getDatabase(app);
-              const guestbookRef = ref(db, 'guestbook');
-              
-              onValue(guestbookRef, (snapshot) => {
-                const data = snapshot.val();
-                const container = document.getElementById('comments-container');
-                
-                if (data) {
-                  const comments = Object.keys(data).map(key => ({
-                    id: key,
-                    ...data[key]
-                  })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-                  
-                  container.innerHTML = comments.map(comment => \`
-                    <div class="comment">
-                      <div class="comment-header">
-                        <span>\${comment.sender || 'Ẩn danh'}</span>
-                        <span>\${comment.date || ''}</span>
-                      </div>
-                      <div class="comment-message">\${comment.message || ''}</div>
-                    </div>
-                  \`).join('');
-                } else {
-                  container.innerHTML = '<div class="loading">Chưa có lời chúc nào 💌</div>';
-                }
-              });
-            } catch (error) {
-              console.error('Firebase error:', error);
-              document.getElementById('comments-container').innerHTML = 
-                '<div class="loading">Không thể tải lời chúc. Vui lòng kiểm tra cấu hình Firebase.</div>';
-            }
-          </script>
-        </body>
-        </html>
-      `);
-      newWindow.document.close();
+    // Tìm phần guestbook và cuộn xuống
+    const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+    
+    // Tìm heading có text "Gửi đến cô dâu chú rể"
+    const guestbookHeading = headings.find(heading => 
+      heading.textContent?.includes('Gửi đến cô dâu chú rể')
+    );
+    
+    if (guestbookHeading) {
+      // Cuộn đến phần guestbook với hiệu ứng mượt
+      guestbookHeading.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    } else {
+      // Fallback: cuộn xuống dưới cùng
+      window.scrollTo({ 
+        top: document.body.scrollHeight, 
+        behavior: 'smooth' 
+      });
     }
   };
 

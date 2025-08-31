@@ -16,7 +16,9 @@ const GalleryWrap = () => {
         <PhotoGallery />
       </ImageMoreWrap>
       {!isMoreView && (
-        <PlusButton onClick={onClickImageMoreViewButton}>Xem thêm</PlusButton>
+        <PlusButton onClick={onClickImageMoreViewButton}>
+          Xem thêm
+        </PlusButton>
       )}
     </ContentsWrap>
   );
@@ -57,10 +59,28 @@ const WhiteGradientOverlay = styled.div`
 const PlusButton = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 6px 12px;
+  padding: 12px 16px;
   font-size: 1rem;
+  display: flex;
   align-items: center;
-  border-radius: 4px;
+  justify-content: center;
+  border-radius: 8px;
   border: 1px solid #dfdfdf;
   cursor: pointer;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #666;
+
+  &:hover {
+    background-color: #f8f8f8;
+    border-color: #ccc;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
 `;
