@@ -31,7 +31,7 @@ const Accordion = ({ title, children }: IAccordionProps) => {
 export default Accordion;
 
 const AccordionWrapper = styled.div`
-  font-family: HSSanTokki20-Regular, serif;
+  font-family: 'Crimson Text', serif;
   border: 1px solid #e6ece1;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -46,8 +46,10 @@ const AccordionHeader = styled.div<{ isActive: boolean }>`
   background-color: #e6ece1;
   padding: 0 15px;
   cursor: pointer;
+  font-family: 'Playfair Display', serif;
   & > p {
     color: #44484d;
+    font-weight: 500;
   }
   & > span {
     display: flex;
@@ -60,6 +62,7 @@ const AccordionHeader = styled.div<{ isActive: boolean }>`
 `;
 
 const AccordionContent = styled.div`
+  font-family: 'Crimson Text', serif;
   font-size: 14px;
   text-align: justify;
   padding: 10px 20px;

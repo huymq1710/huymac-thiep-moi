@@ -10,7 +10,7 @@ const KakaoMap = () => {
   });
 
   if (error) {
-    return <div>카카오맵을 불러오는데 실패했습니다.</div>;
+    return <div>Không thể tải bản đồ Kakao.</div>;
   }
 
   return (

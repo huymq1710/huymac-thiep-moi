@@ -1,49 +1,58 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-// import { push, ref, serverTimestamp } from 'firebase/database';
-// import { realtimeDb } from '../../firebase.ts';
-
-// TODO: 방명록 기능 사용시, realtime db에 guestbook 추가
-// const guestbookRef = ref(realtimeDb, 'guestbook');
+import { push, ref, serverTimestamp } from 'firebase/database';
+import { realtimeDb } from '../../firebase.ts';
 
 const CommentForm = () => {
   const [name, setName] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
     if (!name || !message) {
-      alert('이름과 메시지를 채워주세요. 🥹');
-    } else {
-      e.preventDefault();
-      // TODO: 이름, 메시지, 생성시간, 작성날짜 저장.
-      // const guestbookMessage = {
-      //   sender: name,
-      //   message: message,
-      //   createdAt: serverTimestamp(),
-      //   date: new Date().toLocaleString(),
-      // };
-      // void push(guestbookRef, guestbookMessage);
-      //
-      // alert('메시지를 보냈습니다. 💌');
+      alert('Vui lòng điền tên và lời nhắn. 🥹');
+      return;
+    }
+
+    if (!realtimeDb) {
+      alert('Tính năng gửi lời chúc chưa được cấu hình. Vui lòng thiết lập Firebase Realtime Database. 😔');
+      return;
+    }
+
+    try {
+      const guestbookRef = ref(realtimeDb, 'guestbook');
+      const guestbookMessage = {
+        sender: name,
+        message: message,
+        createdAt: serverTimestamp(),
+        date: new Date().toLocaleString('vi-VN'),
+      };
+      
+      await push(guestbookRef, guestbookMessage);
+      alert('Lời chúc đã được gửi thành công! 💌');
       setName('');
       setMessage('');
+    } catch (error) {
+      console.error('Lỗi khi gửi lời chúc:', error);
+      alert('Có lỗi xảy ra khi gửi lời chúc. Vui lòng thử lại! 😔');
     }
   };
 
   return (
     <FormWrapper onSubmit={handleSubmit}>
       <NameInput
-        placeholder="이름"
+        placeholder="Tên"
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
       <MessageInput
-        placeholder="메시지"
+        placeholder="Lời nhắn"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <SubmitButton type="submit">등록</SubmitButton>
+      <SubmitButton type="submit">Đăng ký</SubmitButton>
     </FormWrapper>
   );
 };

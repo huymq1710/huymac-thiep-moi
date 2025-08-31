@@ -42,8 +42,7 @@ export interface IHostInfo {
 export interface IMapInfo {
   address1: string;
   address2: string;
-  naverMap: string;
-  kakaoMap: string;
+  googleMap: string;
   lat: number;
   lon: number;
 }

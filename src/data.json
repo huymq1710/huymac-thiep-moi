@@ -1,107 +1,110 @@
 {
   "greeting": {
-    "title": "장세모 \uD83D\uDC8D 황네모\n결혼합니다!",
-    "message": "저희 결혼합니다.\n\n서로에게 알맞은 온도로 따뜻하던 우리.\n부부로서 첫걸음을 내딛는 그 설렘의 순간에\n소중한 분들을 초대합니다.",
+    "title": "Quang Huy \uD83D\uDC8D Thanh Hương\nsẽ kết hôn!",
+    "message": "Chúng tôi sẽ kết hôn.\n\nTừ những ngày đầu quen biết,\nchúng tôi đã luôn yêu thương và che chở cho nhau.\nTrong khoảnh khắc thiêng liêng bước vào cuộc sống hôn nhân,\nchúng tôi kính mời quý khách đến chung vui cùng gia đình.",
     "host": {
       "groom": {
-        "name": "세모",
-        "relation": "아들",
+        "name": "Quang Huy",
+        "relation": "Con trai",
         "parents": [
           {
-            "relation": "아버지",
-            "name": "장아빠"
+            "relation": "Bố",
+            "name": "Mạc Mạnh Hùng"
           },
           {
-            "relation": "어머니",
-            "name": "이엄마"
+            "relation": "Mẹ",
+            "name": "Vũ Thị Hạnh"
           }
         ]
       },
       "bride": {
-        "name": "네모",
-        "relation": "딸",
+        "name": "Thanh Hương",
+        "relation": "Con gái",
         "parents": [
           {
-            "relation": "아버지",
-            "name": "황아빠"
+            "relation": "Bố",
+            "name": "Hoàng Minh Đoàn"
           },
           {
-            "relation": "어머니",
-            "name": "이엄마"
+            "relation": "Mẹ",
+            "name": "Đỗ Thị Vân"
           }
         ]
       }
     },
-    "eventDetail": "2024년 2월 17일 (토) 14:00\n아펠가모 공덕 라로브홀"
+    "eventDetail": "12 tháng 10 năm 2025 (Chủ Nhật) 10:00\nCảnh Hưng Palace, Hải Phòng"
   },
   "hostInfo": [
     {
-      "host": "신랑측",
+      "host": "🤵🏻‍♂️ Phía nhà trai",
       "accountInfo": [
         {
-          "name": "장세모",
-          "relation": "신랑",
-          "bank": "카카오뱅크",
-          "account": "1234-56-789012",
+          "name": "Mạc Quang Huy",
+          "relation": "🤵🏻‍♂️ Chú rể",
+          "bank": "TECHCOMBANK - ",
+          "account": "9947123810",
           "kakaopayAccount": "",
           "tossAccount": ""
         },
         {
-          "name": "장아빠",
-          "relation": "아버지",
-          "bank": "농협",
-          "account": "123-45-678901"
+          "name": "Mạc Mạnh Hùng",
+          "relation": "👨🏻 Bố",
+          "bank": "SHB - ",
+          "account": "0912006954"
         },
         {
-          "name": "이엄마",
-          "relation": "어머니",
-          "bank": "농협",
-          "account": "123-45-678901"
+          "name": "Vũ Thị Hạnh",
+          "relation": "👩🏻 Mẹ",
+          "bank": "VIETCOMBANK - ",
+          "account": "0031000331118"
         }
       ]
     },
     {
-      "host": "신부측",
+      "host": "👰🏻‍♀️ Phía nhà gái",
       "accountInfo": [
         {
-          "name": "황네모",
-          "relation": "신부",
-          "bank": "토스뱅크",
-          "account": "1234-5678-9012",
+          "name": "Hoàng Thanh Hương",
+          "relation": "👰🏻‍♀️ Cô dâu",
+          "bank": "VIETTINBANK - ",
+          "account": "103870598351",
           "kakaopayAccount": "",
           "tossAccount": ""
         },
         {
-          "name": "황아빠",
-          "relation": "아버지",
-          "bank": "농협",
-          "account": "123-45-678901"
+          "name": "Hoàng Minh Đoàn",
+          "relation": "👨🏻 Bố",
+          "bank": "VIETTINBANK - ",
+          "account": "....."
         },
         {
-          "name": "이엄마",
-          "relation": "어머니",
-          "bank": "농협",
-          "account": "123-45-678901"
+          "name": "Đỗ Thị Vân",
+          "relation": "👩🏻 Mẹ",
+          "bank": "VIETTINBANK - ",
+          "account": "....."
         }
       ]
     }
   ],
   "mapInfo": {
-    "address1": "아펠가모 공덕 라로브홀",
-    "address2": "서울 마포구 마포대로 92\n효성해링턴스퀘어 B동 7층\n02-2197-0230",
-    "naverMap": "https://naver.me/IM4RDses",
-    "kakaoMap": "https://kko.kakao.com/otznTfkVWV",
-    "lat": 37.54222,
-    "lon": 126.952708
+    "address1": "Cảnh Hưng Palace, Hải Phòng",
+    "address2": "Số 32 Khu Đô Thị Mới, Quán Toan, Hải Phòng, Vietnam\nTầng 1\n02257106868",
+    "googleMap": "https://maps.app.goo.gl/9SESEEagXjNcsQLf6",
+    "lat": 20.868,
+    "lon": 106.6837
   },
   "locationInfo": [
     {
-      "title": "\uD83D\uDCCD 지하철",
-      "desc": "\uD83D\uDC49\uD83C\uDFFB 5·6호선 공덕역 7번 출구 (도보 2분)\n\uD83D\uDC49\uD83C\uDFFB 경의·중앙선, 공항철도 공덕역 10번 출구 (도보 30초)"
+      "title": "🚌 Xe đưa đón từ Hà Nội",
+      "desc": "🚩 Điểm khởi hành: Capital Palace, 29 Liễu Giai, Ba Đình, Hà Nội - (https://maps.app.goo.gl/1G4jpvdWoM9q9hCs6|Google map)\n⏰ Thời gian: 7:30 sáng ngày 12/10/2025\n🚗 Loại xe: Xe 45 chỗ có điều hòa\n📞 Liên hệ: [Sẽ cập nhật]\n⏱️ Thời gian di chuyển: khoảng 2 tiếng"
     },
     {
-      "title": "\uD83D\uDCCD 주차안내",
-      "desc": "\uD83D\uDC49\uD83C\uDFFB 건물 내 3-5층 2시간 무료주차\n(안내데스크에서 주차권 수령)"
+      "title": "🚌 Xe đưa đón từ Bắc Giang",
+      "desc": "🚩 Điểm khởi hành: Nhà văn hóa Yên Lư, Yên Dũng, Bắc Giang\n⏰ Thời gian: 7:00 sáng ngày 12/10/2025\n🚗 Loại xe: Xe 45 chỗ có điều hòa\n📞 Liên hệ: [Sẽ cập nhật]\n⏱️ Thời gian di chuyển: khoảng 2.5 tiếng"
+    },
+    {
+      "title": "🚌 Xe đưa đón từ Hải Dương",
+      "desc": "🚩 Điểm khởi hành: Nhà văn hóa Liên Mạc, Thanh Hà, Hải Dương\n⏰ Thời gian: 8:00 sáng ngày 12/10/2025\n🚗 Loại xe: Xe 45 chỗ có điều hòa\n📞 Liên hệ: [Sẽ cập nhật]\n⏱️ Thời gian di chuyển: khoảng 1 tiếng"
     }
   ],
   "emojis": [

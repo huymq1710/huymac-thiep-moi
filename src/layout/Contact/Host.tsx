@@ -18,28 +18,33 @@ const Host = () => {
 export default Host;
 
 const HostInfo = ({ person }: { person: BrideAndGroom }) => {
+  // Hardcode names based on relation
+  const displayName = person.relation === 'Con trai' ? '🤵🏻‍♂️ Mạc Quang Huy' : '👰🏻‍♀️ Hoàng Thanh Hương';
+  
   return (
     <HostDetails>
-      {person.parents && (
-        <>
-          {person.parents.map((parent, index) => (
-            <React.Fragment key={index}>
-              {index > 0 && ' · '}
-              {parent.name}
-            </React.Fragment>
-          ))}
-        </>
-      )}
-      <RelationText>
-        <div>의</div>
-        <Relation>{person.relation}</Relation>
-      </RelationText>
-      <HighlightedName>{person.name}</HighlightedName>
+      <HighlightedName>{displayName}</HighlightedName>
+      <RelationshipText>
+        Bố mẹ
+      </RelationshipText>
+      <ParentsInfo>
+        {person.parents && (
+          <>
+            {person.parents.map((parent, index) => (
+              <React.Fragment key={index}>
+                {index > 0 && ' · '}
+                {parent.name}
+              </React.Fragment>
+            ))}
+          </>
+        )}
+      </ParentsInfo>
     </HostDetails>
   );
 };
 
 const HighlightedName = styled.span`
+  font-family: 'Playfair Display', serif;
   font-weight: 600;
   font-size: 1.1rem;
   color: #4f4f4f;
@@ -48,28 +53,31 @@ const HighlightedName = styled.span`
 
 const HostContainer = styled.div`
   gap: 8px;
-  font-family: HSSanTokki20-Regular, serif;
+  font-family: 'Crimson Text', serif;
 `;
 
 const HostDetails = styled.div`
-  padding: 0 55px;
+  padding: 20px 20px;
   justify-content: center;
-  white-space: nowrap;
   display: flex;
-  gap: 6px;
+  flex-direction: column;
   text-align: center;
   align-items: center;
   font-weight: 700;
+  font-family: 'Crimson Text', serif;
+  gap: 8px;
+  margin-bottom: 20px;
 `;
 
-const RelationText = styled.div`
-  font-style: normal;
-  line-height: 26px;
-  width: 50px;
-  display: flex;
-  gap: 6px;
+const ParentsInfo = styled.div`
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 4px;
+  font-weight: 600;
 `;
 
-const Relation = styled.div`
-  width: inherit;
+const RelationshipText = styled.div`
+  font-size: 0.9rem;
+  color: #888;
+  font-weight: 500;
 `;

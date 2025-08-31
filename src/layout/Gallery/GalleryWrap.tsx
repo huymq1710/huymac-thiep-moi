@@ -16,7 +16,7 @@ const GalleryWrap = () => {
         <PhotoGallery />
       </ImageMoreWrap>
       {!isMoreView && (
-        <PlusButton onClick={onClickImageMoreViewButton}>더보기</PlusButton>
+        <PlusButton onClick={onClickImageMoreViewButton}>Xem thêm</PlusButton>
       )}
     </ContentsWrap>
   );

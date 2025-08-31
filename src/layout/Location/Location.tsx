@@ -3,7 +3,7 @@ import data from 'data.json';
 import Address from './Address.tsx';
 import MapButtons from './MapButtons.tsx';
 import { Caption, PointTitle } from '@/components/Text.tsx';
-import KakaoMap from './KakaoMap.tsx';
+import GoogleMap from './GoogleMap.tsx';
 
 const Location = () => {
   const { mapInfo } = data;
@@ -11,7 +11,7 @@ const Location = () => {
     <LocationWrapper>
       <PointTitle>{mapInfo.address1}</PointTitle>
       <Caption textAlign={'center'}>{mapInfo.address2}</Caption>
-      <KakaoMap />
+      <GoogleMap />
       <MapButtons />
       <Address />
     </LocationWrapper>

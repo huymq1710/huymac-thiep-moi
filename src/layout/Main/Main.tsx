@@ -23,14 +23,16 @@ const MainImg = styled.img`
 `;
 
 const MainTitle = styled.p`
-  font-family: HSSanTokki20-Regular, serif;
-  font-size: 2rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
   color: #2F2120;
   line-height: 120%;
   white-space: pre-line;
+  font-weight: 600;
 `;
 
 const SubTitle = styled.p`
+  font-family: 'Crimson Text', serif;
   font-size: 1.1rem;
   color: #2F2120;
   line-height: 140%;

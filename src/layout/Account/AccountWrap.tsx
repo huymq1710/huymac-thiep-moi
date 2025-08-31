@@ -22,10 +22,10 @@ const AccountWrap = ({
   const handleCopy = () => {
     navigator.clipboard.writeText(account).then(
       () => {
-        alert('계좌번호가 복사되었습니다.😉😉');
+        alert('Số tài khoản đã được sao chép.😉😉');
       },
       () => {
-        alert('계좌번호 복사에 실패했습니다.🥲🥲');
+        alert('Sao chép số tài khoản thất bại.🥲🥲');
       },
     );
   };
@@ -61,7 +61,7 @@ const AccountWrap = ({
 };
 
 const Wrapper = styled.div`
-  font-family: 'SUITE-Regular';
+  font-family: 'Crimson Text', serif;
   padding: 10px 0;
   border-bottom: 1px solid #dfdfdf;
   &:last-of-type {
