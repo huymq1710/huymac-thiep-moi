@@ -8,8 +8,8 @@ const PhotoGallery = () => {
   const smallItemStyles: React.CSSProperties = useMemo(() => ({
     cursor: 'pointer',
     objectFit: 'cover', // 전체 이미지가 보이도록 맞추고 싶을 때는 contain / 비율 유지하고 싶을 때는 cover
-    width: '100px',
-    height: '150px',
+    width: '140px',
+    height: '200px',
     borderRadius: '8px',
     transition: 'transform 0.2s ease-in-out',
   }), []);
@@ -21,7 +21,7 @@ const PhotoGallery = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '8px',
           padding: '0 4px',
         }}>

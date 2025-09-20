@@ -42,21 +42,17 @@ const VirtualContent = styled.div<{ totalHeight: number }>`
 const VirtualItem = styled.div<{ offsetTop: number; visible: boolean; isMobile: boolean }>`
   position: absolute;
   top: ${props => props.offsetTop}px;
-  width: calc(33.333% - 5.33px);
-  height: ${props => props.isMobile ? '120px' : '150px'};
+  width: calc(50% - 4px);
+  height: ${props => props.isMobile ? '160px' : '200px'};
   opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 0.2s ease-in-out;
   
-  &:nth-of-type(3n+1) {
+  &:nth-of-type(2n+1) {
     left: 0;
   }
   
-  &:nth-of-type(3n+2) {
-    left: calc(33.333% + 2.67px);
-  }
-  
-  &:nth-of-type(3n) {
-    left: calc(66.666% + 5.33px);
+  &:nth-of-type(2n) {
+    left: calc(50% + 4px);
   }
 `;
 
@@ -94,10 +90,10 @@ const VirtualizedPhotoGallery: React.FC = () => {
   
   // Cấu hình virtual scroll - tối ưu cho mobile
   const virtualScrollConfig = useMemo(() => ({
-    itemHeight: mobileSettings.isMobile ? 120 : 150, // Giảm height cho mobile
+    itemHeight: mobileSettings.isMobile ? 160 : 200, // Tăng height cho layout 2x2
     containerHeight: Math.min(viewportSize.height * 0.7, mobileSettings.isMobile ? 400 : 600), // Giảm container height cho mobile
-    itemsPerRow: 3,
-    overscan: mobileSettings.isMobile ? 1 : 3 // Ít buffer hơn cho mobile để tiết kiệm memory
+    itemsPerRow: 2,
+    overscan: mobileSettings.isMobile ? 1 : 2 // Ít buffer hơn cho mobile để tiết kiệm memory
   }), [viewportSize.height, mobileSettings.isMobile]);
 
   // Cleanup invisible images để tiết kiệm memory
