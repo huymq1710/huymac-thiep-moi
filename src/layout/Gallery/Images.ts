@@ -14,7 +14,24 @@ export interface ImageItem {
   width: number;
   height: number;
   priority?: boolean; // Đánh dấu ảnh ưu tiên load trước
+  blurDataURL?: string; // Base64 blur placeholder
 }
+
+// Utility để tạo URL optimized cho Vercel
+export const getOptimizedImageUrl = (
+  originalUrl: string, 
+  width: number, 
+  quality: number = 75
+): string => {
+  // Nếu đang trong production (Vercel)
+  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
+    // Sử dụng Vercel Image Optimization
+    return `/_next/image?url=${encodeURIComponent(originalUrl)}&w=${width}&q=${quality}`;
+  }
+  
+  // Local development - trả về ảnh gốc
+  return originalUrl;
+};
 
 const images: ImageItem[] = [   /* 이미지 경로를 리스트로 저장 */
   {
