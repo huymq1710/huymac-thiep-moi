@@ -54,17 +54,58 @@ const StyledImage = styled.img<{ isLoaded: boolean }>`
   opacity: ${props => props.isLoaded ? 1 : 0};
 `;
 
-// Utility để generate responsive image URLs - ĐƠN GIẢN HÓA CHO DEV
-const generateImageSizes = (originalSrc: string) => {
-  // Trong development, chỉ trả về ảnh gốc
+// Detect mobile device và connection
+const getDeviceCapabilities = () => {
+  if (typeof window === 'undefined') return { isMobile: false, isSlowConnection: false, pixelRatio: 1 };
+  
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const pixelRatio = window.devicePixelRatio || 1;
+  
+  let isSlowConnection = false;
+  try {
+    const nav = navigator as any;
+    if (nav.connection) {
+      isSlowConnection = nav.connection.effectiveType === '2g' || 
+                        nav.connection.effectiveType === 'slow-2g';
+    }
+  } catch (e) {
+    isSlowConnection = isMobile; // Fallback
+  }
+  
+  return { isMobile, isSlowConnection, pixelRatio };
+};
+
+// Utility để generate responsive image URLs với optimization cho mobile
+const generateImageSizes = (originalSrc: string, width: number, quality?: number) => {
+  const { isMobile, isSlowConnection, pixelRatio } = getDeviceCapabilities();
+  
+  // Tính toán kích thước tối ưu
+  let optimalWidth = width;
+  let optimalQuality = quality || 75;
+  
+  if (isMobile) {
+    optimalWidth = Math.min(width, 300); // Max 300px cho mobile
+    optimalQuality = Math.min(optimalQuality, 50); // Max 50% quality
+  }
+  
+  if (isSlowConnection) {
+    optimalWidth = Math.min(optimalWidth, 200); // Còn nhỏ hơn cho slow connection
+    optimalQuality = Math.min(optimalQuality, 35); // Giảm quality xuống 35%
+  }
+  
+  // Adjust for pixel ratio but cap it
+  const adjustedWidth = Math.min(optimalWidth * Math.min(pixelRatio, 2), optimalWidth * 2);
+  
   return {
     src: originalSrc,
-    srcSet: originalSrc
+    srcSet: originalSrc,
+    width: adjustedWidth,
+    quality: optimalQuality
   };
 };
 
 const OptimizedImage: React.ForwardRefRenderFunction<HTMLImageElement, OptimizedImageProps> = (
-  { src, alt, width, height, style, priority = false, sizes, onClick },
+  { src, alt, width, height, style, priority = false, quality = 75, sizes, onClick },
   ref
 ) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -99,12 +140,12 @@ const OptimizedImage: React.ForwardRefRenderFunction<HTMLImageElement, Optimized
     return () => observer.disconnect();
   }, [priority, isInView]);
 
-  // Generate responsive image URLs - ĐƠN GIẢN CHO DEV
+  // Generate responsive image URLs với optimization cho mobile
   const imageUrls = useMemo(() => {
-    if (!isInView) return { src: '', srcSet: '' };
+    if (!isInView) return { src: '', srcSet: '', width: 0, quality: 0 };
     
-    return generateImageSizes(src);
-  }, [src, isInView]);
+    return generateImageSizes(src, width, quality);
+  }, [src, width, quality, isInView]);
 
   // Preload critical images
   useEffect(() => {
@@ -159,7 +200,7 @@ const OptimizedImage: React.ForwardRefRenderFunction<HTMLImageElement, Optimized
           srcSet={imageUrls.srcSet}
           sizes={sizes || `(max-width: 768px) 100vw, 50vw`}
           alt={alt}
-          width={width}
+          width={imageUrls.width || width} // Sử dụng optimized width
           height={height}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"

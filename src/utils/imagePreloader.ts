@@ -1,4 +1,6 @@
 import { useCallback } from 'react';
+import { MobileOptimizer } from './mobileOptimization';
+import images from '@/layout/Gallery/Images';
 
 interface PreloadOptions {
   quality?: number;
@@ -93,6 +95,45 @@ class ImagePreloader {
       size: this.preloadedImages.size,
       urls: Array.from(this.preloadedImages)
     };
+  }
+
+  // Mobile-optimized critical image preloading
+  static async preloadCriticalImages(): Promise<void> {
+    const settings = MobileOptimizer.getOptimalSettings();
+    const criticalCount = settings.isMobile ? 3 : 6;
+    
+    // Chỉ preload những ảnh đầu tiên với quality thấp
+    const criticalImages = images.slice(0, criticalCount);
+    
+    const preloadPromises = criticalImages.map(image => 
+      this.preloadImage(image.source, { 
+        quality: Math.min(settings.quality, 30), 
+        priority: true 
+      }).catch(() => {}) // Silent fail
+    );
+    
+    await Promise.allSettled(preloadPromises);
+  }
+
+  // Preload next batch với mobile optimization
+  static async preloadNextBatch(startIndex: number, batchSize: number = 3): Promise<void> {
+    const settings = MobileOptimizer.getOptimalSettings();
+    
+    // Giảm batchSize cho mobile và slow connection
+    if (settings.isMobile || settings.isSlowConnection) {
+      batchSize = Math.min(batchSize, 2);
+    }
+    
+    const nextImages = images.slice(startIndex, startIndex + batchSize);
+    
+    const preloadPromises = nextImages.map(image =>
+      this.preloadImage(image.source, { 
+        quality: settings.quality,
+        priority: false 
+      }).catch(() => {}) // Silent fail
+    );
+    
+    await Promise.allSettled(preloadPromises);
   }
 }
 
@@ -199,5 +240,15 @@ export const useConnectionAwarePreloading = () => {
     getConnectionInfo
   };
 };
+
+// Initialize mobile preloading
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    const settings = MobileOptimizer.getOptimalSettings();
+    if (!settings.isSlowConnection) {
+      ImagePreloader.preloadCriticalImages().catch(console.warn);
+    }
+  }, 1000); // Delay để không block initial render
+}
 
 export default ImagePreloader;

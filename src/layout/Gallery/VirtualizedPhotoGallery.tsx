@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useCallback } from 'react';
 import { Gallery, Item } from 'react-photoswipe-gallery';
 import 'photoswipe/style.css';
 import images, { getOptimizedImageUrl } from '@/layout/Gallery/Images.ts';
 import OptimizedImage from '@/components/OptimizedImage.tsx';
 import { useVirtualScroll, useViewportSize } from '@/hooks/useVirtualScroll';
+import { MobileOptimizer, ImageLoadMonitor } from '@/utils/mobileOptimization';
 import styled from '@emotion/styled';
 
 // Styled components
@@ -38,11 +39,11 @@ const VirtualContent = styled.div<{ totalHeight: number }>`
   position: relative;
 `;
 
-const VirtualItem = styled.div<{ offsetTop: number; visible: boolean }>`
+const VirtualItem = styled.div<{ offsetTop: number; visible: boolean; isMobile: boolean }>`
   position: absolute;
   top: ${props => props.offsetTop}px;
   width: calc(33.333% - 5.33px);
-  height: 150px;
+  height: ${props => props.isMobile ? '120px' : '150px'};
   opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 0.2s ease-in-out;
   
@@ -86,13 +87,39 @@ const LoadingIndicator = styled.div`
 const VirtualizedPhotoGallery: React.FC = () => {
   const viewportSize = useViewportSize();
   
-  // Cấu hình virtual scroll
+  // Get mobile optimization settings
+  const mobileSettings = useMemo(() => {
+    return MobileOptimizer.getMemoryOptimizedSettings();
+  }, []);
+  
+  // Cấu hình virtual scroll - tối ưu cho mobile
   const virtualScrollConfig = useMemo(() => ({
-    itemHeight: 150, // Height của mỗi ảnh
-    containerHeight: Math.min(viewportSize.height * 0.7, 600), // 70vh hoặc max 600px
+    itemHeight: mobileSettings.isMobile ? 120 : 150, // Giảm height cho mobile
+    containerHeight: Math.min(viewportSize.height * 0.7, mobileSettings.isMobile ? 400 : 600), // Giảm container height cho mobile
     itemsPerRow: 3,
-    overscan: 3 // Render thêm 3 items buffer
-  }), [viewportSize.height]);
+    overscan: mobileSettings.isMobile ? 1 : 3 // Ít buffer hơn cho mobile để tiết kiệm memory
+  }), [viewportSize.height, mobileSettings.isMobile]);
+
+  // Cleanup invisible images để tiết kiệm memory
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Browser tab is hidden, clean up some resources
+        ImageLoadMonitor.reset();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  // Monitor performance và adjust settings
+  const getAdaptiveQuality = useCallback(() => {
+    if (ImageLoadMonitor.shouldReduceQuality()) {
+      return Math.max(mobileSettings.quality - 15, 20); // Reduce but not below 20
+    }
+    return mobileSettings.quality;
+  }, [mobileSettings.quality]);
 
   const {
     virtualItems,
@@ -124,6 +151,7 @@ const VirtualizedPhotoGallery: React.FC = () => {
                 key={imageIndex}
                 offsetTop={virtualRow.offsetTop}
                 visible={imageIndex >= startIndex && imageIndex <= endIndex}
+                isMobile={mobileSettings.isMobile}
                 style={{
                   left: `${columnIndex * 33.333 + columnIndex * 0.8}%`
                 }}
@@ -131,7 +159,11 @@ const VirtualizedPhotoGallery: React.FC = () => {
                 <Item
                   cropped
                   original={image.source}
-                  thumbnail={getOptimizedImageUrl(image.source, 150, 60)}
+                  thumbnail={getOptimizedImageUrl(
+                    image.source, 
+                    mobileSettings.isMobile ? 100 : 150, 
+                    getAdaptiveQuality()
+                  )}
                   width={image.width}
                   height={image.height}
                 >
@@ -141,17 +173,20 @@ const VirtualizedPhotoGallery: React.FC = () => {
                         cursor: 'pointer',
                         objectFit: 'cover',
                         width: '100%',
-                        height: '150px',
+                        height: mobileSettings.isMobile ? '120px' : '150px',
                         borderRadius: '8px',
                         transition: 'transform 0.2s ease-in-out',
                       }}
                       alt={image.alt}
                       src={image.source}
-                      width={100}
-                      height={150}
-                      priority={imageIndex < 6} // 6 ảnh đầu được ưu tiên
-                      quality={65}
-                      sizes="(max-width: 768px) 33vw, 120px"
+                      width={mobileSettings.isMobile ? 80 : 100}
+                      height={mobileSettings.isMobile ? 120 : 150}
+                      priority={imageIndex < (mobileSettings.isMobile ? 3 : 6)} // Ít ảnh ưu tiên hơn cho mobile
+                      quality={getAdaptiveQuality()} // Sử dụng adaptive quality
+                      sizes={mobileSettings.isMobile ? 
+                        "(max-width: 768px) 33vw, 100px" : 
+                        "(max-width: 768px) 33vw, 120px"
+                      }
                       ref={ref as React.MutableRefObject<HTMLImageElement>}
                       onClick={open}
                     />
@@ -166,6 +201,13 @@ const VirtualizedPhotoGallery: React.FC = () => {
             <LoadingIndicator style={{ top: '10px' }}>
               Đang tải thêm ảnh...
             </LoadingIndicator>
+          )}
+          
+          {/* Performance stats for debugging - only in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <div style={{ position: 'absolute', top: '10px', left: '10px' }}>
+              {/* Add PerformanceStats component if needed */}
+            </div>
           )}
         </VirtualContent>
       </GalleryContainer>
