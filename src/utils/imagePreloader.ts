@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 
 interface PreloadOptions {
   quality?: number;
@@ -8,8 +8,6 @@ interface PreloadOptions {
 
 class ImagePreloader {
   private static preloadedImages = new Set<string>();
-  private static preloadQueue: Array<{ url: string; options: PreloadOptions }> = [];
-  private static isProcessing = false;
   private static maxConcurrent = 2; // Giới hạn số ảnh load đồng thời
 
   // Preload một ảnh với options

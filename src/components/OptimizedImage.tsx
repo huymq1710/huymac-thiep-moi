@@ -54,19 +54,6 @@ const StyledImage = styled.img<{ isLoaded: boolean }>`
   opacity: ${props => props.isLoaded ? 1 : 0};
 `;
 
-// Hook để detect device pixel ratio
-const useDevicePixelRatio = () => {
-  const [dpr, setDpr] = useState(typeof window !== 'undefined' ? window.devicePixelRatio : 1);
-  
-  useEffect(() => {
-    const updateDpr = () => setDpr(window.devicePixelRatio);
-    window.addEventListener('resize', updateDpr);
-    return () => window.removeEventListener('resize', updateDpr);
-  }, []);
-  
-  return dpr;
-};
-
 // Utility để generate responsive image URLs - ĐƠN GIẢN HÓA CHO DEV
 const generateImageSizes = (originalSrc: string) => {
   // Trong development, chỉ trả về ảnh gốc
@@ -77,14 +64,13 @@ const generateImageSizes = (originalSrc: string) => {
 };
 
 const OptimizedImage: React.ForwardRefRenderFunction<HTMLImageElement, OptimizedImageProps> = (
-  { src, alt, width, height, style, priority = false, quality = 75, sizes, onClick },
+  { src, alt, width, height, style, priority = false, sizes, onClick },
   ref
 ) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority); // Priority images load immediately
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const dpr = useDevicePixelRatio();
   
   // Generate blur placeholder
   const { blurDataURL } = useBlurPlaceholder(src);
