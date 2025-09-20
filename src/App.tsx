@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Heading1 } from '@/components/Text.tsx';
 import Wrapper from '@/components/Wrapper.tsx';
 import Account from '@/layout/Account/Account.tsx';
@@ -60,6 +61,7 @@ function App() {
         <Guestbook />
       </Wrapper>
       <FloatingBar isVisible={isVisible} />
+      <SpeedInsights />
     </Container>
   );
 }
