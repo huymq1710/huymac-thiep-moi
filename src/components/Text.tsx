@@ -9,11 +9,11 @@ export const Heading1 = styled.p`
   font-weight: 600;
   line-height: 1.3;
   
-  /* Mobile responsive - tăng font size và điều chỉnh để tránh xuống dòng không mong muốn */
+  /* Mobile responsive - giảm size để tương đương zoom 70% */
   @media (max-width: 768px) {
-    font-size: 1.35rem;
-    margin: 8px 0;
-    padding: 0 10px;
+    font-size: 1.05rem; /* ~70% của 1.5rem */
+    margin: 6px 0;
+    padding: 0 8px;
     /* Cho phép từ được chia nếu quá dài */
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -23,14 +23,14 @@ export const Heading1 = styled.p`
   }
   
   @media (max-width: 480px) {
-    font-size: 1.25rem;
-    margin: 6px 0;
-    padding: 0 8px;
+    font-size: 1rem;
+    margin: 5px 0;
+    padding: 0 6px;
   }
   
   @media (max-width: 360px) {
-    font-size: 1.15rem;
-    padding: 0 5px;
+    font-size: 0.95rem;
+    padding: 0 4px;
   }
 `;
 
@@ -39,6 +39,22 @@ export const Heading2 = styled.p`
   font-size: 1rem;
   margin: 10px;
   white-space: pre-line;
+  
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    font-size: 0.85rem; /* ~70% của 1rem */
+    margin: 7px 0;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin: 6px 0;
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 0.75rem;
+    margin: 5px 0;
+  }
 `;
 
 export const PointTitle = styled.p`
@@ -64,8 +80,8 @@ export const PointTitle = styled.p`
   
   /* Mobile responsive */
   @media (max-width: 768px) {
-    font-size: 1.05rem;
-    margin: 0 0 6px 0;
+    font-size: 0.8rem; /* ~70% của 1.1rem */
+    margin: 0 0 4px 0;
     /* Tránh xuống dòng không mong muốn */
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -73,12 +89,12 @@ export const PointTitle = styled.p`
   }
   
   @media (max-width: 480px) {
-    font-size: 1rem;
-    margin: 0 0 5px 0;
+    font-size: 0.75rem;
+    margin: 0 0 4px 0;
   }
   
   @media (max-width: 360px) {
-    font-size: 0.95rem;
+    font-size: 0.7rem;
   }
 `;
 
@@ -94,12 +110,12 @@ export const Paragraph = styled.p`
   border-radius: 12px;
   border: 1px solid rgba(232, 140, 166, 0.1);
   
-  /* Mobile responsive - tối ưu hiển thị văn bản dài */
+  /* Mobile responsive - giảm size để tương đương zoom 70% */
   @media (max-width: 768px) {
-    padding: 16px 12px;
-    margin: 12px 8px;
-    font-size: 0.95rem;
-    line-height: 1.7rem;
+    padding: 12px 8px;
+    margin: 8px 6px;
+    font-size: 0.8rem; /* ~70% để tương đương zoom 70% */
+    line-height: 1.4rem;
     /* Đảm bảo văn bản không bị cắt xấu */
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -107,17 +123,17 @@ export const Paragraph = styled.p`
   }
   
   @media (max-width: 480px) {
-    padding: 14px 10px;
-    margin: 10px 5px;
-    font-size: 0.9rem;
-    line-height: 1.6rem;
+    padding: 10px 6px;
+    margin: 7px 4px;
+    font-size: 0.75rem;
+    line-height: 1.3rem;
   }
   
   @media (max-width: 360px) {
-    padding: 12px 8px;
-    margin: 8px 4px;
-    font-size: 0.85rem;
-    line-height: 1.5rem;
+    padding: 8px 5px;
+    margin: 6px 3px;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
   }
 `;
 
