@@ -53,7 +53,7 @@ function App() {
         <Account />
       </Wrapper>
       <Wrapper>
-        <Heading1 style={{ marginBottom: '24px' }}>Địa chỉ tổ chức</Heading1>
+        <Heading1 style={{ marginBottom: '24px' }}>Địa điểm tổ chức</Heading1>
         <Location />
       </Wrapper>
       <Wrapper>
