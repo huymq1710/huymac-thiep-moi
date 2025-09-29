@@ -9,19 +9,6 @@ const Wrapper = styled.section`
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  
-  /* Mobile optimization */
-  @media (max-width: 768px) {
-    padding: 20px 15px;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 15px 10px;
-  }
-  
-  @media (max-width: 360px) {
-    padding: 12px 8px;
-  }
 `;
 
 export default Wrapper;
