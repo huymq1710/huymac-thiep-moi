@@ -60,49 +60,112 @@ const CommentForm = () => {
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 16px;
   overflow: visible;
   align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffeef5 0%, #f8f4f9 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(232, 140, 166, 0.1);
+  border: 1px solid rgba(232, 140, 166, 0.2);
 `;
 
 const NameInput = styled.input`
   width: 100%;
   box-sizing: border-box;
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 12px;
+  padding: 14px 16px;
   font-size: 1rem;
-  line-height: 1;
+  line-height: 1.4;
   outline: none;
-  border: 1px solid #ccc;
-  font-family: inherit;
-  font-weight: 300;
+  border: 2px solid rgba(232, 140, 166, 0.3);
+  font-family: 'Crimson Text', serif;
+  font-weight: 400;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: rgba(68, 72, 77, 0.6);
+    font-style: italic;
+  }
+  
+  &:focus {
+    border-color: #e88ca6;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(232, 140, 166, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  &:hover {
+    border-color: rgba(232, 140, 166, 0.5);
+  }
 `;
 
 const MessageInput = styled.textarea`
   width: 100%;
-  height: 100%;
+  min-height: 100px;
+  max-height: 200px;
   box-sizing: border-box;
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 12px;
+  padding: 14px 16px;
   font-size: 1rem;
   line-height: 1.5;
   outline: none;
-  border: 1px solid #ccc;
-  resize: none;
-  font-family: inherit;
-  font-weight: 300;
+  border: 2px solid rgba(232, 140, 166, 0.3);
+  resize: vertical;
+  font-family: 'Crimson Text', serif;
+  font-weight: 400;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: rgba(68, 72, 77, 0.6);
+    font-style: italic;
+  }
+  
+  &:focus {
+    border-color: #e88ca6;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(232, 140, 166, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  &:hover {
+    border-color: rgba(232, 140, 166, 0.5);
+  }
 `;
 
 const SubmitButton = styled.button`
   width: 100%;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 14px 24px;
+  border-radius: 25px;
+  font-size: 1.1rem;
   line-height: 1.5;
-  border: 1px solid lightgray;
-  background-color: white;
-  font-family: inherit;
-  font-weight: inherit;
-  color: inherit;
+  border: none;
+  background: linear-gradient(135deg, #e88ca6 0%, #d678a0 100%);
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(232, 140, 166, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 140, 166, 0.4);
+    background: linear-gradient(135deg, #d678a0 0%, #c26693 100%);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(232, 140, 166, 0.3);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(232, 140, 166, 0.3);
+  }
 `;
 export default CommentForm;

@@ -1,7 +1,7 @@
 {
   "greeting": {
     "title": "Huy \uD83D\uDC8D Hương\nsẽ kết hôn!",
-  "message": "Chúng tôi sẽ kết hôn.\n\nThương nhau từ thuở thiếu thời\nƯớc mong chăm sóc, trọn đời có nhau.\nCho dù mưa nắng ngày sau,\nNguyên con lợn cưới, trầu cau cưới nàng.\nVu quy kèn pháo rình rang\nKính mong cô bác họ hàng chung vui.",
+  "message": "\nThương nhau từ thuở thiếu thời\nƯớc mong chăm sóc, trọn đời có nhau.\nCho dù mưa nắng ngày sau,\nNguyên con lợn cưới, trầu cau cưới nàng.\nVu quy kèn pháo rình rang\nKính mong cô bác họ hàng chung vui.",
     "host": {
       "groom": {
         "name": "Quang Huy",
@@ -45,18 +45,6 @@
           "account": "9947123810",
           "kakaopayAccount": "",
           "tossAccount": ""
-        },
-        {
-          "name": "Mạc Mạnh Hùng",
-          "relation": "👨🏻 Bố",
-          "bank": "SHB - ",
-          "account": "0912006954"
-        },
-        {
-          "name": "Vũ Thị Hạnh",
-          "relation": "👩🏻 Mẹ",
-          "bank": "VIETCOMBANK - ",
-          "account": "0031000331118"
         }
       ]
     },
@@ -70,25 +58,13 @@
           "account": "103870598351",
           "kakaopayAccount": "",
           "tossAccount": ""
-        },
-        {
-          "name": "Hoàng Minh Đoàn",
-          "relation": "👨🏻 Bố",
-          "bank": "VIETTINBANK - ",
-          "account": "....."
-        },
-        {
-          "name": "Đỗ Thị Vân",
-          "relation": "👩🏻 Mẹ",
-          "bank": "VIETTINBANK - ",
-          "account": "....."
         }
       ]
     }
   ],
   "mapInfo": {
-    "address1": "Cảnh Hưng Palace, Hải Phòng",
-    "address2": "Số 32 Khu Đô Thị Mới, Quán Toan, Hải Phòng, Vietnam\nTầng 1\n02257106868",
+    "address1": "\n\nCảnh Hưng Palace, Hải Phòng",
+    "address2": "Số 32 Khu Đô Thị Mới, Quán Toan, Hải Phòng\nTầng 1\n02257106868",
     "googleMap": "https://maps.app.goo.gl/9SESEEagXjNcsQLf6",
     "lat": 20.868,
     "lon": 106.6837

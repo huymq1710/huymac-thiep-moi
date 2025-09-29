@@ -1,6 +1,6 @@
 import image01 from '@/assets/images/01.webp'
 import image02 from '@/assets/images/02.webp'
-import image09 from '@/assets/images/09.webp'
+import image08 from '@/assets/images/08.webp'
 import image07 from '@/assets/images/07.webp'
 
 export interface ImageItem {
@@ -70,8 +70,8 @@ const images: ImageItem[] = [   /* 이미지 경로를 리스트로 저장 */
     priority: true // 4 ảnh sẽ được load trước
   },
   {
-    alt: 'image09',
-    source: image09,
+    alt: 'image08',
+    source: image08,
     width: 640,
     height: 960,
     priority: true

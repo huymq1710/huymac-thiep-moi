@@ -7,7 +7,7 @@ interface IAccordionProps {
   children: ReactNode;
 }
 const Accordion = ({ title, children }: IAccordionProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

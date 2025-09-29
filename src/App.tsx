@@ -41,7 +41,7 @@ function App() {
         <Main />
       </Wrapper>
       <Wrapper>
-        <Heading1>Thiệp mời</Heading1>
+        <Heading1 style={{ marginBottom: '24px' }}>Thiệp mời</Heading1>
         <Invitation />
       </Wrapper>
       <Wrapper ref={galleryRef}>
@@ -53,7 +53,7 @@ function App() {
         <Account />
       </Wrapper>
       <Wrapper>
-        <Heading1>Địa chỉ tổ chức</Heading1>
+        <Heading1 style={{ marginBottom: '24px' }}>Địa chỉ tổ chức</Heading1>
         <Location />
       </Wrapper>
       <Wrapper>
